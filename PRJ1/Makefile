@@ -2,9 +2,8 @@ TARGETS= prj1
 
 all: $(TARGETS)
 
-clean: 
+clean:
 	rm $(TARGETS)
 
 % : %.c
-        gcc -Wall -g -o $@ $<
-
+	gcc -Wall -g -o $@ $<
