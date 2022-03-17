@@ -1,6 +1,6 @@
 # CSCI-340 Homework 6: Blake Mitrick
 ---
-## 1. Use the command ```gcc -pthread -o hwk6 hwk6.c``` to compile
+## 1. Use the command ```gcc -pthread -o hwk6 hwk6.c``` to compile and ```./hwk6 num_threads len_string``` to run
 ## 2. Locking
 
 ### b.

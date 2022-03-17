@@ -33,7 +33,7 @@ void *thread_function(void *arg){
             *current_address = 'a';
             str_len_counter += 1;
 
-            printf("thread number %d added %c to string \n", id, *current_address);
+            printf("Thread %d added %c to the string \n", id, *current_address);
             break;
           }
 
@@ -47,18 +47,14 @@ void *thread_function(void *arg){
           *current_address = 'a';
           str_len_counter += 1;
 
-          printf("thread number %d added %c to string \n", id, *current_address);
+          printf("Thread %d added %c to the string \n", id, *current_address);
           break;
         }
 
         current_address++;
       }
     }
-
-    return;
   }
-
-  return;
 }
 
 int main(int argc, char *argv[]){
