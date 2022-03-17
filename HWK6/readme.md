@@ -1,6 +1,6 @@
 # CSCI-340 Homework 6: Blake Mitrick
 ---
-
+## 1. Use the command ```gcc -pthread -o hwk6 hwk6.c``` to compile
 ## 2. Locking
 
 ### b.
@@ -1982,4 +1982,15 @@ STATS:: Emulation Rate  17.33 kinst/sec
 
 ### c.
 #### ```flag.s```
-This program only ends with count 26, this is because 
+This program only ends with count 26, this is because the flag system is not atomic and some of the threads may incorrectly add to count due to a thread preemptively executing.
+#### ```test-and-set.s``` and ```yield.s```
+These programs end with count 30, this is because they are atomic and work as intended.
+
+### d.
+The different programs handle the process of checking if a thread is good to run in different ways (ie mutex and flags) and they take more or fewer instructions based on the checking mechanism.
+
+### e.
+#### i.
+For flag, the count value changes but it appears to be inconsistent and does not necessarily go up or down with the increase or decrease of -I. For the other 2 programs, count stays the same.
+#### ii.
+The number of instructions for each change and they do not really appear to have a consistent trend with regards to -I. Similar to the count for flag, the number of instructions will increase and decrease seemingly independently of -I.
