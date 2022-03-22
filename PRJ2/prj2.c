@@ -64,6 +64,8 @@ struct queue* createQueue(){
 
 //Add item to the back of the queue
 void push(struct queue* q, char data[DATASIZE]){
+  pthread_mutex_lock(&lock);
+
   //Generates node to be added
   struct node* i = newNode(data);
 
@@ -79,10 +81,13 @@ void push(struct queue* q, char data[DATASIZE]){
     q->rear = i;
   }
 
+  pthread_mutex_unlock(&lock);
 }
 
 //Pop first item off queue
 char * pop(struct queue* q){
+  pthread_mutex_lock(&lock);
+
   //Check if queue is empty
   if(q->rear == NULL){
     return emptyString;
@@ -100,6 +105,8 @@ char * pop(struct queue* q){
   }
 
   //Return the popped items key (contents)
+  pthread_mutex_unlock(&lock);
+
   return poppedNode->data;
 }
 
@@ -108,7 +115,7 @@ struct queue* q;
 int sum = 0;
 
 void *thread_function(void *arg){
-  pthread_mutex_lock(&lock);
+  //pthread_mutex_lock(&lock);
 
   int id = (int) (uintptr_t) arg;
   char *nodeData = pop(q);
@@ -128,7 +135,7 @@ void *thread_function(void *arg){
 
   sum += localSum;
 
-  pthread_mutex_unlock(&lock);
+  //pthread_mutex_unlock(&lock);
 }
 
 int main(int argc, char *argv[]){
