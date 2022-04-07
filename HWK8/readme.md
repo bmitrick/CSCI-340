@@ -32,7 +32,7 @@ sda      8:0    0    10G  0 disk
 └─sda1   8:1    0    10G  0 part /
 sr0     11:0    1  1024M  0 rom  
 ```
-#### According to the output when you input ```lsblk --help```, ```lsblk``` lists the information about block devices. This command also tells us about the columns of the output...
+#### The columns of the output...
 * NAME) The name of the device
 * MAJ:MIN) The major:minor device number of the device
 * RM) Indicates if the device is removable
@@ -42,3 +42,30 @@ sr0     11:0    1  1024M  0 rom
 * MOUNTPOINT) Where the device is mounted in the system
 
 ### b) Program lsusb
+```
+blake@CSCI-340:~$ lsusb
+Bus 001 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+```
+#### The columns of the output...
+* Bus) The bus on which the device is located
+* Device) The device number given to the device by the OS
+* ID) The vendor's id followed by the product id then followed by the developer of the device as well as what the device is
+
+## 2) Storage Nomenclature
+### a) Host Bus Adapter (HBA)
+* The HBA is a device that allows for additional resources. Generally this means networking capabilities or storage. These adapters can vary from devices like SATA, Fiber Channel, and iSCSI devices. Other examples of these adapters can include USB or Ethernet. HBAs are either integrated in the motherboard of the computer or connected as an expansion card.
+
+### b) Serial ATA (SATA)
+* SATA is a type of bus interface. Generally, SATA is used to connect mass storage such as hard drives or solid-state drives. Replacing Parallel ATA (PATA), SATA was released in the year 2000 and is managed by the Serial ATA International Organization (SATA-IO).
+
+### c) Fiber Channel
+* Fiber Channel is a protocol for in-order, lossless delivery of data. Generally, Fiber Channel is used to transmit data to and from data storage servers. Fiver Channel runs on fiber optic cables or, less commonly, copper cabling. FC supports data rates from 1-128 gigabit per second, vastly outperforming most other protocols.
+
+### d) iSCSI
+* iSCSI stands for Internet Small Computer Systems Interface. iSCSI is mainly used to transmit data between computers and storage devices on a local network. iSCSI can be used on local area networks (LAN), wide area networks (WAN), or the internet.
+
+### e) Storage Area Network (SAN)
+* A SAN is a network which allows for block-level data storage. These networks are used to access storage devices such as hard drive arrays. Generally, a SAN is its own dedicated network of storage devices and is not accessible from the LAN.
+
+### f) Network Attached Storage (NAS)
+* A NAS is a storage server connected to a local network. This allows computers attached to the network to access and manipulate the data stored on the NAS. Network attached storage devices often run some form of RAID in order to ensure data safety through redundancy. Network attached storage devices can consist of hard drives, solid-state drives, or other forms of long term storage.
