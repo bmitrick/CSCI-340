@@ -11,7 +11,7 @@ A few problems could arise from not actually deleting deleted information. First
 
 ## 3. You are designing a file system from scratch. The disk driver allows you complete control over the placement of data on the disk. Assuming that you have settled for a File Allocation Table (FAT) architecture, where would be the best place to store the table on disk?
 
-
+I would place this data in the middle stripe between the edge and the center of the platter. I would put it here since it would be in the center point for data storage. This would make it optimal for the storage of data on the spinning disk since the drive could start with the reading head on the FAT, find the location of the data it needs, and it would be able to reference it and come back to the FAT while covering as little distance as possible (at least on average). If it were to be on the very center or edge of the plate it has the possiblilty that the head would need to move the full radius of the plate in order to get to the information it needs while when the FAT is stored on the middle stripe it would at most need to cover half the radius of the disk.
 
 ## 4. Contiguous allocation of files leads to disk fragmentation. Explain why?
 
