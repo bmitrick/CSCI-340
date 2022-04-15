@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <string.h>
+
 /*
 a) Read the header
 b) Allocate space for the offset array and read the offset array
@@ -99,17 +99,16 @@ int main(int argc, char *argv[]){
     //Move pointer past the size value
     filePointer+=4;
 
+
     //Pull the actual line data
-    char line[lineSizeValue - 4];
-    read(file, line, lineSizeValue - 4);
+    char *line = malloc((lineSizeValue - 4)* sizeof(char));
+    read(file, line, lineSizeValue - 5);
 
     //Print the line
     printf("%s \n", line);
   }
 
   close(file);
-
-
 
   return 0;
 }
