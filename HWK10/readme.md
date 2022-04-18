@@ -1,7 +1,7 @@
 # CSCI-340 Homework 10: Blake Mitrick
 ---
 
-## 1. Is it fundamentally necessary to store on disk the information about the unallocated disk sectors? Explain why.
+## 1. Is it fundamentally necessary to store on disk the information about the unallocated disk sectors? Explain why?
 
 It is not fundamentally necessary, however, it is a good idea. In order to avoid needing to track all the unallocated disk information it is possible for the OS to simply track the information about all the allocated data and assume that all the spots on the disk that are not allocated are unallocated. This would essentially be saying that everything that is not expressly marked as allocated is unallocated. This could lead to issued down the road but it is possible to run an OS without a list of unallocated disk sectors.
 
@@ -15,4 +15,8 @@ I would place this data in the middle stripe between the edge and the center of 
 
 ## 4. Contiguous allocation of files leads to disk fragmentation. Explain why?
 
+When contiguously allocating files, all the blocks the file is subdevided into will be found consecutively in the storage of the computer. This means that when the file is deleted, there will be a new free space the size of the file where the file once was on the storage device. This is similar to memory managenemt where, eventually, as files are added and deleted, small chunks of memory develop as new programs don't quite fill up all the space of the program that was once in that chunk of memory. Eventually, the only free spaces will be tiny chunks which are too small for files to fit into, leading the file to need to be broken up and fragmented in order to be stored on the storage device.
+
 ## 5. Can we implement symbolic links in DOS (FAT file system)? If so, show how, and if not, explain why.
+
+We can implement symbolic links in DOS. 
