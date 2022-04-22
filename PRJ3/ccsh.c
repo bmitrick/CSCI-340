@@ -14,9 +14,8 @@ void interativeMode(){
 
   char *line = NULL;
   size_t len = 0;
-  ssize_t linesize = 0;
 
-  linesize = getline(&line, &len, stdin);
+  getline(&line, &len, stdin);
 
   //If the command entered is the exit code, exit the program
   if(strcmp(line, exitCode) == 0){
