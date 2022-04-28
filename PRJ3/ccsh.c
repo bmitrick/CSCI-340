@@ -211,54 +211,82 @@ void batchMode(char *fileName){
 
   //executes the file line by line
   while ((read = getline(&line, &len, file)) != -1){
-    //printf("%s\n", line);
+    //Trim the \n from the line
+    line[strcspn(line, "\n")] = 0;
 
-    char *hasAnd = strstr(line, "&");
+    //If the command entered is the exit code, exit the program
+    if(strcmp(line, exitCode) == 0){
+      exit(0);
+    }
 
-    if (hasAnd){
-      char *lineDup = strdup(line);
-      int numCommands = 0;
-      while (strsep(&lineDup, "&") != NULL){
-        numCommands++;
+    char *lineDup = strdup(line);
+    char *command = strsep(&lineDup," ");
+
+    if(strcmp(command, "path") == 0){
+      path = line+5;
+    }
+
+    else if (strcmp(command, "cd") == 0){
+      char *directory = strsep(&lineDup," ");
+      char *next = strsep(&lineDup," ");
+
+      if(next != NULL || directory == NULL){
+        displayError();
+      } else {
+        if (chdir(directory) != 0){
+          displayError();
+        }
       }
+    }
 
-      lineDup = strdup(line);
-      char *commands[numCommands];
-      for(int i = 0; i < numCommands; i++){
-        commands[i] = strsep(&lineDup, "&");
+    else {
+      char *hasAnd = strstr(line, "&");
+
+      if (hasAnd){
+        char *lineDup = strdup(line);
+        int numCommands = 0;
+        while (strsep(&lineDup, "&") != NULL){
+          numCommands++;
+        }
+
+        lineDup = strdup(line);
+        char *commands[numCommands];
+        for(int i = 0; i < numCommands; i++){
+          commands[i] = strsep(&lineDup, "&");
+        }
+
+        //Run each command in parallel
+        int pids[numCommands];
+        for(int i = 0; i < numCommands; i++){
+          pid_t pid = fork();
+          pids[i] = pid;
+
+          if (pid < 0){
+            printf("error in fork");
+            exit(0);
+          }
+          else if (pid == 0) {
+            execute(commands[i]);
+          }
+        }
+
+        for(int i = 0; i < numCommands; i++){
+          waitpid(pids[i], 0, 0);
+        }
       }
-
-      //Run each command in parallel
-      int pids[numCommands];
-      for(int i = 0; i < numCommands; i++){
+      else {
         pid_t pid = fork();
-        pids[i] = pid;
 
         if (pid < 0){
           printf("error in fork");
           exit(0);
         }
         else if (pid == 0) {
-          execute(commands[i]);
+          execute(line);
         }
-      }
-
-      for(int i = 0; i < numCommands; i++){
-        waitpid(pids[i], 0, 0);
-      }
-    }
-    else {
-      pid_t pid = fork();
-
-      if (pid < 0){
-        printf("error in fork");
-        exit(0);
-      }
-      else if (pid == 0) {
-        execute(line);
-      }
-      else{
-        waitpid(pid, 0, 0);
+        else{
+          waitpid(pid, 0, 0);
+        }
       }
     }
   }

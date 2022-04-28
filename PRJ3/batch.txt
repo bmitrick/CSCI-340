@@ -1,2 +1,6 @@
-ls -a
-ls & ls
+ls & ls -a
+cd ..
+path /usr/bin /bin
+ls
+path
+ls
